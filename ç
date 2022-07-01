@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env Python
 __author__ = "James Simpson"
 __copyright__ = "Copyright 2017, James Simpson"
 __license__ = "MIT"
@@ -632,7 +632,7 @@ class FortiGate:
         return results
 
 
-    def trigger_webhook_ban_ip(self, webhook_name, ip, mac, fctuid):
+    def trigger_webhook_ban_ip(self, webhook_name, ip):
         """
         Trigger webhook name
 
@@ -644,6 +644,6 @@ class FortiGate:
         api_url = self.urlbase + "api/v2/monitor/system/automation-stitch/webhook/"
         api_url = api_url + webhook_name
         api_url = requests.utils.quote(api_url)
-        result = self.post(api_url, json={"srcip":"{ip}".format(ip=ip), "mac":"{mac}".format(mac=mac), "fctuid":"{fctuid}".format(fctuid=fctuid)})
+        result = self.post(api_url, "{{'json': {data}}}".format(data=data))
         return result
 
