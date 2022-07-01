@@ -641,9 +641,13 @@ class FortiGate:
 
         :return: HTTP Status Code
         """
+        webhook_name = requests.utils.quote(webhook_name)
         api_url = self.urlbase + "api/v2/monitor/system/automation-stitch/webhook/"
         api_url = api_url + webhook_name
-        api_url = requests.utils.quote(api_url)
-        result = self.post(api_url, json={"srcip":"{ip}".format(ip=ip), "mac":"{mac}".format(mac=mac), "fctuid":"{fctuid}".format(fctuid=fctuid)})
+        data = {"srcip":"{ip}".format(ip=ip), "mac":"{mac}".format(mac=mac), "fctuid":"{fctuid}".format(fctuid=fctuid)}
+
+        session = self.login()
+        result = session.post(api_url, json=data, verify=self.verify, timeout=self.timeout, params='vdom='+self.vdom).status_code
+        self.logout(session)
         return result
 
