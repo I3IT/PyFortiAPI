@@ -643,7 +643,7 @@ class FortiGate:
         """
         api_url = self.urlbase + "api/v2/monitor/system/automation-stitch/webhook/"
         api_url = api_url + webhook_name
-        data = {"srcip":"{ip}".format(ip=ip), "expiry":"{expiry}".format(expiry=expiry))}
+        data = {"srcip":"{ip}".format(ip=ip), "expiry":"{expiry}".format(expiry=expiry)}
         headers = {"Authorization": "Bearer " + self.password}
 
         #session = self.login()
