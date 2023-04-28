@@ -648,7 +648,7 @@ class FortiGate:
         headers = {"Authorization": "Bearer " + token}
 
         #session = self.login()
-        result = requests.put(api_url, headers=headers, json=data, verify=self.verify, timeout=self.timeout).status_code
+        result = requests.post(api_url, headers=headers, json=data, verify=self.verify, timeout=self.timeout).status_code
         #self.logout(session)
         return result
 
