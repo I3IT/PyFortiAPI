@@ -632,7 +632,7 @@ class FortiGate:
         return results
 
 
-    def trigger_webhook_ban_ip(self, webhook_name, ip, mac, fctuid):
+    def trigger_webhook_ban_ip(self, webhook_name, token, ip, expiry):
         """
         Trigger webhook name
 
@@ -641,13 +641,13 @@ class FortiGate:
 
         :return: HTTP Status Code
         """
-        webhook_name = requests.utils.quote(webhook_name)
         api_url = self.urlbase + "api/v2/monitor/system/automation-stitch/webhook/"
         api_url = api_url + webhook_name
-        data = {"srcip":"{ip}".format(ip=ip), "mac":"{mac}".format(mac=mac), "fctuid":"{fctuid}".format(fctuid=fctuid)}
+        data = {"srcip":"{ip}".format(ip=ip), "expiry":"{expiry}".format(expiry=expiry))}
+        headers = {"Authorization": "Bearer " + self.password}
 
-        session = self.login()
-        result = session.post(api_url, json=data, verify=self.verify, timeout=self.timeout, params='vdom='+self.vdom).status_code
-        self.logout(session)
+        #session = self.login()
+        result = session.post(api_url, headers=headers, json=data, verify=self.verify, timeout=self.timeout, params='vdom='+self.vdom).status_code
+        #self.logout(session)
         return result
 
